@@ -1,3 +1,27 @@
 Day 1 of Leetcode Practice!!
 In this I have solved the Daily Challenge problem Of July Month - 4 July
-My Solution: https://leetcode.com/problems/find-the-k-th-character-in-string-game-ii/submissions/1685732388
+
+Problem: Find K-th Character in String
+Solution:
+class Solution:
+    def kthCharacter(self, k: int, operations: List[int]) -> str:
+        lengths = [1]
+        
+        for op in operations:
+            lengths.append(lengths[-1] * 2)
+            if lengths[-1] >= k:
+                break
+        shift = 0
+        idx = len(lengths) - 1
+        
+        while idx > 0:
+            half = lengths[idx - 1]
+            if k > half:
+                k -= half
+                if operations[idx - 1] == 1:
+                    shift += 1
+            idx -= 1
+            
+        return chr((ord('a') - ord('a') + shift) % 26 + ord('a'))
+
+Link: https://leetcode.com/problems/find-the-k-th-character-in-string-game-ii/submissions/1685732388
